@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'tv_show_app/css/style.css' %}">
+    <title>All Shows</title>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1>All Shows</h1>
+    </div>
+    <div class="topbar">
+            <a class="btn btn-dark" id="a" href="/shows/new">Add another show</a>
+    </div>
+    <div class="main">
+        <div class="container">
+            <table class="table table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Network</th>
+                        <th>Air Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in all_movies %}
+                    <tr>
+                        <td>{{ m.id }}</td>
+                        <td>{{ m.title }}</td>
+                        <td>{{ m.network }}</td>
+                        <td>{{ m.air_date }}</td>
+                        <td>
+                            <a href="/shows/{{m.id}}">View</a> |
+                            <a href="/shows/{{m.id}}/edit">Edit</a> |
+                            <a href="/shows/{{m.id}}/destroy">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

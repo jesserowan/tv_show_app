@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'tv_show_app/css/style.css' %}">
+    <title>Edit Show</title>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1>Edit Show {{movie.id}}</h1>
+    </div>
+    <div class="topbar">
+        <a class="btn btn-dark" id="a" href="/shows">View All Shows</a>
+    </div>
+    <div class="main">
+        <div class="container">
+            <a id="c" href="/shows/{{movie.id}}/destroy">Delete</a>
+            <form class="" action="/shows/{{movie.id}}/update/" method="POST">
+                {% csrf_token %}
+                <label class="form-group">Title of TV Show</label>
+                <input class="form-control" type="text" name="title" value="{{movie.title}}">
+    
+                <label class="form-group">Network</label>
+                <input class="form-control" type="text" name="network" value="{{movie.network}}">
+
+                <label class="form-group">Release Date</label>
+                <input class="form-control" type="date" name="air_date" value="{{date}}">
+
+                <label class="form-group">Description</label>
+                <textarea class="form-control" rows="5" type="text" name="description">{{movie.description}}</textarea>
+                <input type="submit" class="btn btn-dark" value="Submit Edits">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
