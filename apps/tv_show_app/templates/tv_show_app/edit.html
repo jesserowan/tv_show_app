@@ -22,15 +22,32 @@
             <form class="" action="/shows/{{movie.id}}/update/" method="POST">
                 {% csrf_token %}
                 <label class="form-group">Title of TV Show</label>
+                {% for message in messages %}
+                    {% if "title" in message.tags %}
+                        <p class="error">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
                 <input class="form-control" type="text" name="title" value="{{movie.title}}">
-    
                 <label class="form-group">Network</label>
+                {% for message in messages %}
+                    {% if "network" in message.tags %}
+                        <p class="error">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
                 <input class="form-control" type="text" name="network" value="{{movie.network}}">
-
                 <label class="form-group">Release Date</label>
+                {% for message in messages %}
+                    {% if "date" in message.tags %}
+                        <p class="error">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
                 <input class="form-control" type="date" name="air_date" value="{{date}}">
-
                 <label class="form-group">Description</label>
+                {% for message in messages %}
+                    {% if "description" in message.tags %}
+                        <p class="error">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
                 <textarea class="form-control" rows="5" type="text" name="description">{{movie.description}}</textarea>
                 <input type="submit" class="btn btn-dark" value="Submit Edits">
             </form>

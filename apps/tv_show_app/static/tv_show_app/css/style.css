@@ -21,6 +21,23 @@ h1 {
     margin: 0px 0px 20px 0px;
     justify-content: space-between;
 }
+.error {
+    background-image: linear-gradient(rgb(255, 189, 189), rgb(255, 153, 153));
+    border: 1px solid red;
+    padding: 3px;
+    color: black;
+    margin: 0px;
+    margin-bottom: 5px;
+}
+.actions {
+    width: 120px;
+}
+.actions_a {
+    width: 165px;
+}
+.id {
+    width: 100px;
+}
 #a {
     margin: 5px 5px 5px 86%;
     height: auto;

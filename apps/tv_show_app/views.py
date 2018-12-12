@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Movie
+from django.contrib import messages
 
 def index(request):
     all_movies = Movie.objects.all()
@@ -10,7 +11,13 @@ def new(request):
     return render(request, 'tv_show_app/new.html')
 
 def create(request):
-    movie = Movie.objects.create(title=request.POST['title'], network=request.POST['network'], air_date=request.POST['air_date'], description=request.POST['description'])
+    errors = Movie.objects.validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value, extra_tags=key)
+        return redirect('/shows/new')
+    else:
+        movie = Movie.objects.create(title=request.POST['title'], network=request.POST['network'], air_date=request.POST['air_date'], description=request.POST['description'])
     return redirect(f"/shows/{movie.id}")
 
 def show(request, number):
@@ -30,26 +37,18 @@ def destroy(request, number):
     return redirect('/shows')
 
 def update(request, number):
+    errors = Movie.objects.validator(request.POST)
     movie = Movie.objects.get(id=number)
-    # context = {
-    #     "movie": movie,
-    #     "updated_title": request.POST['title'],
-    #     "updated_network": request.POST['network'],
-    #     "updated_date": request.POST['air_date'],
-    #     "updated_desc": request.POST['description']
-    # }
-    # movie.title = updated_title
-    # movie.network = updated_network
-    # movie.air_date = updated_date
-    # movie.description = updated_desc
-    movie.title = request.POST['title']
-    movie.save()
-    movie.network = request.POST['network']
-    movie.save()
-    movie.air_date = request.POST['air_date']
-    movie.save()
-    movie.description = request.POST['description']
-    movie.save()
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value, extra_tags=key)
+        return redirect(f"/shows/{movie.id}/edit")
+    else:
+        movie.title = request.POST['title']
+        movie.network = request.POST['network']
+        movie.air_date = request.POST['air_date']
+        movie.description = request.POST['description']
+        movie.save()
     return redirect(f'/shows/{movie.id}')
 
 def edit(request, number):

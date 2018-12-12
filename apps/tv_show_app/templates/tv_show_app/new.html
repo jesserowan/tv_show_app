@@ -21,19 +21,47 @@
             <form class="" action="/shows/create" method="POST">
                 {% csrf_token %}
                 <label class="form-group">Title of TV Show</label>
+                {% for message in messages %}
+                    {% if "title" in message.tags %}
+                        <p class="error">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
                 <input class="form-control" type="text" name="title">
-
                 <label class="form-group">Network</label>
+                {% for message in messages %}
+                    {% if "network" in message.tags %}
+                        <p class="error">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
                 <input class="form-control" type="text" name="network">
-
                 <label class="form-group">Release Date</label>
+                {% for message in messages %}
+                    {% if "date" in message.tags %}
+                        <p class="error">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
                 <input class="form-control" type="date" name="air_date">
-
                 <label class="form-group">Description</label>
+                {% for message in messages %}
+                    {% if "description" in message.tags %}
+                        <p class="error">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
                 <textarea class="form-control" rows="5" type="text" name="description"></textarea>
-
                 <input type="submit" class="btn btn-dark">
             </form>
+            <!-- {% if messages %}
+                {% for message in messages %}
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message.title }}</p>
+                {% endfor %}
+            {% endif %} -->
+            <!-- {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if title in message.error.title %} class="{{ message.error.title }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %} -->
         </div>
     </div>
 </body>
